@@ -1,0 +1,280 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HIGGS Dataset Feature Schema",
+  "description": "28 features from the UCI HIGGS dataset (Baldi et al., 2014). Binary classification: signal (Higgs boson production) vs background (non-Higgs).",
+  "version": "1.0",
+  "citation": "Baldi, P., Sadowski, P., & Whiteson, D. (2014). Searching for Exotic Particles in High-Energy Physics with Deep Learning. Nature Communications, 5, 4308.",
+
+  "target": {
+    "name": "label",
+    "dtype": "int",
+    "values": {"0": "background", "1": "signal"},
+    "class_balance": {"signal_fraction": 0.529, "background_fraction": 0.471}
+  },
+
+  "features": [
+    {
+      "index": 0,
+      "name": "lepton_pt",
+      "dtype": "float32",
+      "description": "Transverse momentum of the lepton (electron or muon)",
+      "unit": "GeV",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 1000.0]
+    },
+    {
+      "index": 1,
+      "name": "lepton_eta",
+      "dtype": "float32",
+      "description": "Pseudorapidity of the lepton",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [-5.0, 5.0]
+    },
+    {
+      "index": 2,
+      "name": "lepton_phi",
+      "dtype": "float32",
+      "description": "Azimuthal angle of the lepton in the transverse plane",
+      "unit": "radians",
+      "physics_category": "low_level",
+      "valid_range": [-3.1416, 3.1416]
+    },
+    {
+      "index": 3,
+      "name": "missing_energy_magnitude",
+      "dtype": "float32",
+      "description": "Missing transverse energy magnitude (proxy for neutrinos)",
+      "unit": "GeV",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2000.0]
+    },
+    {
+      "index": 4,
+      "name": "missing_energy_phi",
+      "dtype": "float32",
+      "description": "Azimuthal angle of missing transverse energy vector",
+      "unit": "radians",
+      "physics_category": "low_level",
+      "valid_range": [-3.1416, 3.1416]
+    },
+    {
+      "index": 5,
+      "name": "jet1_pt",
+      "dtype": "float32",
+      "description": "Transverse momentum of leading jet",
+      "unit": "GeV",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2000.0]
+    },
+    {
+      "index": 6,
+      "name": "jet1_eta",
+      "dtype": "float32",
+      "description": "Pseudorapidity of leading jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [-5.0, 5.0]
+    },
+    {
+      "index": 7,
+      "name": "jet1_phi",
+      "dtype": "float32",
+      "description": "Azimuthal angle of leading jet",
+      "unit": "radians",
+      "physics_category": "low_level",
+      "valid_range": [-3.1416, 3.1416]
+    },
+    {
+      "index": 8,
+      "name": "jet1_b_tag",
+      "dtype": "float32",
+      "description": "b-tagging discriminant for leading jet (0=no b-tag, higher=more likely b-jet)",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2.1]
+    },
+    {
+      "index": 9,
+      "name": "jet2_pt",
+      "dtype": "float32",
+      "description": "Transverse momentum of subleading jet",
+      "unit": "GeV",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2000.0]
+    },
+    {
+      "index": 10,
+      "name": "jet2_eta",
+      "dtype": "float32",
+      "description": "Pseudorapidity of subleading jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [-5.0, 5.0]
+    },
+    {
+      "index": 11,
+      "name": "jet2_phi",
+      "dtype": "float32",
+      "description": "Azimuthal angle of subleading jet",
+      "unit": "radians",
+      "physics_category": "low_level",
+      "valid_range": [-3.1416, 3.1416]
+    },
+    {
+      "index": 12,
+      "name": "jet2_b_tag",
+      "dtype": "float32",
+      "description": "b-tagging discriminant for subleading jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2.1]
+    },
+    {
+      "index": 13,
+      "name": "jet3_pt",
+      "dtype": "float32",
+      "description": "Transverse momentum of third jet",
+      "unit": "GeV",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2000.0]
+    },
+    {
+      "index": 14,
+      "name": "jet3_eta",
+      "dtype": "float32",
+      "description": "Pseudorapidity of third jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [-5.0, 5.0]
+    },
+    {
+      "index": 15,
+      "name": "jet3_phi",
+      "dtype": "float32",
+      "description": "Azimuthal angle of third jet",
+      "unit": "radians",
+      "physics_category": "low_level",
+      "valid_range": [-3.1416, 3.1416]
+    },
+    {
+      "index": 16,
+      "name": "jet3_b_tag",
+      "dtype": "float32",
+      "description": "b-tagging discriminant for third jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2.1]
+    },
+    {
+      "index": 17,
+      "name": "jet4_pt",
+      "dtype": "float32",
+      "description": "Transverse momentum of fourth jet",
+      "unit": "GeV",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2000.0]
+    },
+    {
+      "index": 18,
+      "name": "jet4_eta",
+      "dtype": "float32",
+      "description": "Pseudorapidity of fourth jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [-5.0, 5.0]
+    },
+    {
+      "index": 19,
+      "name": "jet4_phi",
+      "dtype": "float32",
+      "description": "Azimuthal angle of fourth jet",
+      "unit": "radians",
+      "physics_category": "low_level",
+      "valid_range": [-3.1416, 3.1416]
+    },
+    {
+      "index": 20,
+      "name": "jet4_b_tag",
+      "dtype": "float32",
+      "description": "b-tagging discriminant for fourth jet",
+      "unit": "dimensionless",
+      "physics_category": "low_level",
+      "valid_range": [0.0, 2.1]
+    },
+    {
+      "index": 21,
+      "name": "m_jj",
+      "dtype": "float32",
+      "description": "Invariant mass of the two leading jets",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 5000.0]
+    },
+    {
+      "index": 22,
+      "name": "m_jjj",
+      "dtype": "float32",
+      "description": "Invariant mass of the three leading jets",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 5000.0]
+    },
+    {
+      "index": 23,
+      "name": "m_lv",
+      "dtype": "float32",
+      "description": "Invariant mass of lepton + missing energy system (W boson proxy)",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 1000.0]
+    },
+    {
+      "index": 24,
+      "name": "m_jlv",
+      "dtype": "float32",
+      "description": "Invariant mass of leading jet + lepton + missing energy",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 3000.0]
+    },
+    {
+      "index": 25,
+      "name": "m_bb",
+      "dtype": "float32",
+      "description": "Invariant mass of the two b-tagged jets (Higgs → bb proxy)",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 2000.0]
+    },
+    {
+      "index": 26,
+      "name": "m_wbb",
+      "dtype": "float32",
+      "description": "Invariant mass of W boson candidate + two b-tagged jets",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 3000.0]
+    },
+    {
+      "index": 27,
+      "name": "m_wwbb",
+      "dtype": "float32",
+      "description": "Invariant mass of WW + bb system (full ttH proxy)",
+      "unit": "GeV",
+      "physics_category": "high_level",
+      "valid_range": [0.0, 5000.0]
+    }
+  ],
+
+  "feature_groups": {
+    "low_level": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "high_level": [21, 22, 23, 24, 25, 26, 27]
+  },
+
+  "validation_rules": {
+    "no_nulls": true,
+    "no_inf": true,
+    "label_values": [0, 1]
+  }
+}

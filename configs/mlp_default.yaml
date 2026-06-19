@@ -1,0 +1,67 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# MLP Default Hyperparameters
+# Particle Physics Event Classifier — Module 3a
+# ─────────────────────────────────────────────────────────────────────────────
+
+model:
+  name: "mlp"
+  version: "1.0"
+
+architecture:
+  input_dim: 28               # Number of input features (HIGGS dataset)
+  hidden_dims: [512, 256, 128, 64]
+  output_dim: 1
+  activation: "relu"
+  batch_norm: true
+  dropout_rates: [0.3, 0.3, 0.2, 0.0]  # One per hidden layer (last has no dropout)
+  output_activation: "sigmoid"
+
+training:
+  epochs: 100
+  batch_size: 4096            # Large batches work well with BatchNorm
+  learning_rate: 1.0e-3
+  weight_decay: 1.0e-4
+  optimizer: "adamw"
+
+  # Learning rate scheduler
+  scheduler:
+    name: "cosine_annealing"
+    T_max: 100                # Total epochs
+    eta_min: 1.0e-6
+
+  # Early stopping
+  early_stopping:
+    enabled: true
+    patience: 10
+    monitor: "val_auc"
+    mode: "max"
+    min_delta: 1.0e-4
+
+  # Mixed precision (AMP)
+  mixed_precision: true       # Disabled automatically on CPU/MPS
+
+  # Class imbalance handling
+  class_weights: "balanced"   # "balanced" | "none" | [w0, w1]
+
+  # Gradient clipping
+  gradient_clip_val: 1.0
+
+  # Logging frequency
+  log_every_n_epochs: 1
+  eval_every_n_epochs: 1
+
+  # Reproducibility
+  seed: 42
+
+data:
+  # Path resolved relative to data_root in system.yaml
+  dataset: "higgs"
+  n_samples: 500000           # Use subset for fast training; null = full 11M
+  feature_set: "all"          # "all" | "low_level" | "high_level"
+
+mlflow:
+  run_name: null              # null → auto-generate from timestamp
+  tags:
+    model_type: "mlp"
+    dataset: "higgs"
+    phase: "1"

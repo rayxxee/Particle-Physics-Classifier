@@ -1,0 +1,81 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Global System Configuration
+# Particle Physics Event Classifier
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+paths:
+  data_root:        "data"
+  raw_dir:          "data/raw"
+  processed_dir:    "data/processed"
+  schemas_dir:      "data/schemas"
+  models_dir:       "models"
+  logs_dir:         "logs"
+  mlruns_dir:       "mlruns"
+
+# ── Data ──────────────────────────────────────────────────────────────────────
+data:
+  higgs:
+    url: "https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz"
+    filename: "HIGGS.csv.gz"
+    n_features: 28
+    n_samples: 11000000         # Full dataset
+    n_samples_dev: 500000       # For fast iteration / CI
+
+  # Physics quality cuts applied during ETL (for HIGGS dataset features)
+  quality_cuts:
+    apply: true
+    # HIGGS dataset doesn't have raw detector vars, so these are applied
+    # when reading ROOT files. For HIGGS CSV, basic range cuts apply.
+    lepton_pt_min: 25.0         # GeV
+    lepton_eta_max: 2.4
+    met_min: 20.0               # GeV
+    min_jets: 2
+    jet_pt_min: 30.0            # GeV
+
+  # Train/val/test split
+  split:
+    train: 0.70
+    val:   0.15
+    test:  0.15
+    stratify: true
+    random_seed: 42
+
+  # Normalization applied in ETL
+  normalization: "standard"     # "standard" | "minmax" | "robust"
+
+# ── MLflow ───────────────────────────────────────────────────────────────────
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "particle_physics_classifier"
+  artifact_location: null       # null → default (mlartifacts/)
+  registry_uri: null            # null → same as tracking_uri
+  log_system_metrics: true
+
+# ── Serving ───────────────────────────────────────────────────────────────────
+serving:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+  reload: false
+  default_model: "mlp"
+
+# ── Monitoring ────────────────────────────────────────────────────────────────
+monitoring:
+  prometheus_port: 9090
+  grafana_port: 3000
+  drift_threshold: 0.05         # Evidently drift score → trigger retrain
+  retrain_auc_delta: 0.005      # New model must beat prod by this much
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level: "INFO"                 # DEBUG | INFO | WARNING | ERROR
+  format: "pretty"              # "pretty" (dev) | "json" (prod)
+  log_to_file: false
+  log_file: "logs/ppc.log"
+
+# ── Feature Store ─────────────────────────────────────────────────────────────
+feature_store:
+  backend: "parquet"            # "parquet" | "feast" (future)
+  cache_dir: "data/processed/feature_store"
+  version_by: "config_hash"
