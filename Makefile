@@ -48,6 +48,20 @@ train-gnn:
 train-all:
 	$(PYTHON) -m src.pipeline.training_pipeline --model all
 
+hpo:
+	$(PYTHON) -m src.models.mlp.optimizer \
+		--n-trials 50 \
+		--n-epochs-per-trial 30 \
+		--study-name mlp_hpo \
+		--storage sqlite:///optuna.db \
+		--save-best-config configs/mlp_best.yaml
+
+hpo-quick:
+	$(PYTHON) -m src.models.mlp.optimizer \
+		--n-trials 10 \
+		--n-epochs-per-trial 10 \
+		--study-name mlp_hpo_quick
+
 # ─── Serving ─────────────────────────────────────────────────────────────────
 
 serve:

@@ -41,6 +41,11 @@ dependencies = [
     "torch>=2.1",
     "torchvision>=0.16",
 
+    # Hyperparameter optimisation (Module 3b)
+    "optuna>=3.5",
+    "optuna-integration>=3.5",
+    "PyYAML>=6.0",
+
     # Logging
     "structlog>=23.2",
     "rich>=13.7",
@@ -86,6 +91,7 @@ all = [
 ppc-train   = "src.pipeline.training_pipeline:main"
 ppc-serve   = "src.serving.api.main:start"
 ppc-etl     = "src.ingestion.etl_pipeline:main"
+ppc-hpo     = "src.models.mlp.optimizer:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
