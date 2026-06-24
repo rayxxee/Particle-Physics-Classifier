@@ -18,8 +18,8 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-import pandera as pa
-from pandera import Column, DataFrameSchema, Check
+import pandera.pandas as pa
+from pandera.pandas import Column, DataFrameSchema, Check
 
 from src.utils.logging_config import get_logger
 
@@ -81,7 +81,7 @@ def _build_higgs_schema() -> DataFrameSchema:
                 ]
             },
             **{
-                col: Column(float, checks=[in_range(0.0, 3.0), no_inf()], nullable=False)
+                col: Column(float, checks=[in_range(0.0, 10.0), no_inf()], nullable=False)
                 for col in [
                     "jet1_b_tag", "jet2_b_tag", "jet3_b_tag", "jet4_b_tag",
                 ]
