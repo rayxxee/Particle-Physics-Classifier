@@ -55,12 +55,12 @@ make mlflow         # → open http://localhost:5000
 | 1 — ETL & Ingestion | `src/ingestion/` | ✅ Phase 1 |
 | 2 — Feature Engineering | `src/features/` | ✅ Phase 1 |
 | 3a — MLP Baseline | `src/models/mlp/` | ✅ Phase 1 |
-| 3b — BDT (XGBoost/LightGBM) | `src/models/bdt/` | 🔜 Phase 2 |
-| 3c — Graph Neural Network | `src/models/gnn/` | 🔜 Phase 2 |
-| 3d — Particle Transformer | `src/models/transformer/` | 🔜 Phase 2 |
+| 3b — BDT (XGBoost/LightGBM) | `src/models/bdt/` | ✅ Phase 2 |
+| 3c — Graph Neural Network | `src/models/gnn/` | ✅ Phase 2 |
+| 3d — Particle Transformer | `src/models/transformer/` | ✅ Phase 2 |
 | 3e — Normalizing Flow | `src/models/normalizing_flow/` | 🔜 Phase 2 |
 | 4 — Experiment Tracking | `src/experiment_tracking/` | ✅ Phase 1 |
-| 5 — Evaluation & Physics Metrics | `src/evaluation/` | 🔜 Phase 2 |
+| 5 — Evaluation & Physics Metrics | `src/evaluation/` | ✅ Phase 2 |
 | 6 — Explainability (SHAP/LIME) | `src/explainability/` | 🔜 Phase 3 |
 | 7 — FastAPI Backend | `src/serving/` | 🔜 Phase 3 |
 | 8 — React Dashboard | `frontend/` | 🔜 Phase 4 |
@@ -92,11 +92,14 @@ make mlflow         # → open http://localhost:5000
 | Containerization | Docker Compose, Kubernetes |
 | CI/CD | GitHub Actions |
 
-## Results (Phase 1)
+## Results (Phases 1 & 2)
 
 | Model | Val AUC | Training Time |
 |-------|---------|---------------|
 | MLP baseline | > 0.80 | — |
+| BDT (XGBoost/LightGBM) | TBD | TBD |
+| Graph Neural Network | TBD | TBD |
+| Particle Transformer | TBD | TBD |
 
 ## Citation
 
