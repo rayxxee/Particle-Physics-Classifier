@@ -41,6 +41,14 @@ from src.models.mlp.config import MLPConfig
 from src.models.mlp.model import MLPModel
 from src.utils.logging_config import configure_logging, get_logger
 
+# Phase 2 models — imported lazily in _build_model() to keep startup fast
+# from src.models.bdt.config import BDTConfig
+# from src.models.bdt.model import BDTModel
+# from src.models.gnn.config import GNNConfig
+# from src.models.gnn.model import GNNModel
+# from src.models.transformer.config import TransformerConfig
+# from src.models.transformer.model import TransformerModel
+
 log = get_logger(__name__)
 
 
@@ -257,16 +265,50 @@ class TrainingPipeline:
             model = MLPModel(config)
             return model, config
 
-        # Phase 2 architectures — stubs that raise helpful errors
-        elif model_type in ("bdt", "gnn", "transformer", "normalizing_flow"):
+        elif model_type in ("bdt", "xgboost", "lightgbm"):
+            from src.models.bdt.config import BDTConfig
+            from src.models.bdt.model import BDTModel
+
+            if config_path is not None and Path(config_path).exists():
+                config = BDTConfig.from_yaml(config_path)
+            else:
+                # Infer model_type sub-variant from CLI flag
+                bdt_backend = "lightgbm" if model_type == "lightgbm" else "xgboost"
+                config = BDTConfig(model_type=bdt_backend)
+            model = BDTModel(config)
+            return model, config
+
+        elif model_type == "gnn":
+            from src.models.gnn.config import GNNConfig
+            from src.models.gnn.model import GNNModel
+
+            if config_path is not None and Path(config_path).exists():
+                config = GNNConfig.from_yaml(config_path)
+            else:
+                config = GNNConfig()
+            model = GNNModel(config)
+            return model, config
+
+        elif model_type == "transformer":
+            from src.models.transformer.config import TransformerConfig
+            from src.models.transformer.model import TransformerModel
+
+            if config_path is not None and Path(config_path).exists():
+                config = TransformerConfig.from_yaml(config_path)
+            else:
+                config = TransformerConfig()
+            model = TransformerModel(config)
+            return model, config
+
+        elif model_type == "normalizing_flow":
             raise NotImplementedError(
-                f"Model '{model_type}' is planned for Phase 2. "
-                f"Currently available: mlp"
+                "Normalizing Flow is planned for Phase 3. "
+                "Available: mlp, bdt, xgboost, lightgbm, gnn, transformer"
             )
         else:
             raise ValueError(
-                f"Unknown model type: {model_type}. "
-                f"Available: mlp"
+                f"Unknown model type: {model_type!r}. "
+                f"Available: mlp, bdt, xgboost, lightgbm, gnn, transformer"
             )
 
 
@@ -288,7 +330,7 @@ Examples:
         "--model",
         type=str,
         default="mlp",
-        choices=["mlp"],
+        choices=["mlp", "bdt", "xgboost", "lightgbm", "gnn", "transformer"],
         help="Model architecture to train (default: mlp)",
     )
     parser.add_argument(
