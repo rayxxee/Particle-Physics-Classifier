@@ -42,7 +42,7 @@ data/processed/
 !data/processed/.gitkeep
 
 # Model artifacts (tracked by DVC / MLflow)
-models/
+/models/
 *.pt
 *.pth
 *.onnx
