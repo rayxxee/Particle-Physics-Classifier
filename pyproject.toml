@@ -52,6 +52,7 @@ dependencies = [
 
     # Explainability (Phase 3, but importable now)
     "shap>=0.43",
+    "lime>=0.2",
 ]
 
 [project.optional-dependencies]
